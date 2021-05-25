@@ -22,6 +22,11 @@ fn r#match(needle: &str, haystack: &str) -> bool {
 最后一个区别是，常量只能被设置为常量表达式，而不能是函数调用的结果，
 或任何其他只能在运行时计算出的值。
 
+```rust
+// Rust  常量例子
+const MAX_POINTS :u32 = 100_000;
+```
+
 ## 数据类型
 
 两类数据类型子集：标量（scalar）和复合（compound）
