@@ -17,3 +17,17 @@ Rust 的注释系统可以很方便地生成本地文档，
 | `//`             | 普通行级注释                             |
 | `/* comment */`  | 普通块级注释                             |
 | `/** comment */` | 块级文档注释                             |
+
+## 使用
+
+`cargo doc --open` 打开本地生成的文档阅读
+
+添加如下片段，可以在文档中使用 rust playground 运行代码
+
+```rust
+#![doc(
+    html_playground_url = "https://play.rust-lang.org/",
+    test(no_crate_inject, attr(deny(warnings))),
+    test(attr(allow(dead_code, deprecated, unused_variables, unused_mut)))
+)]
+```
