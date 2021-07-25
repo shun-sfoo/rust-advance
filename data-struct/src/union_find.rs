@@ -17,7 +17,7 @@ pub struct UnionFind {
 }
 
 impl UnionFind {
-    pub fn new(size: usize) -> Self {
+    pub fn new_with_size(size: usize) -> Self {
         let mut rank = vec![0 as usize; size];
         let mut parent = vec![0 as usize; size];
 
@@ -52,8 +52,44 @@ impl UnionFind {
     }
 }
 
-#[test]
-fn test_union_find() {
-    let uf = UnionFind::new(10);
-    println!("UF: {:?}", uf);
+impl UF for UnionFind {
+    fn is_connected(&mut self, p: usize, q: usize) -> bool {
+        self.find(p).unwrap() == self.find(q).unwrap()
+    }
+
+    fn union_elements(&mut self, p: usize, q: usize) {
+        let p_root = self.find(p).unwrap();
+        let q_root = self.find(q).unwrap();
+        if p_root == q_root {
+            return;
+        }
+
+        if self.rank[p_root] < self.rank[q_root] {
+            self.parent[p_root] = q_root;
+        } else if self.rank[p_root] > self.rank[q_root] {
+            self.parent[q_root] = p_root;
+        } else {
+            self.rank[p_root] = q_root;
+            self.rank[p_root] += 1;
+        }
+    }
+
+    fn get_size(&self) -> usize {
+        self.get_size()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn it_works() {
+        let mut union_find = UnionFind::new_with_size(10);
+        union_find.union_elements(3, 5);
+        union_find.union_elements(2, 1);
+        union_find.union_elements(5, 1);
+        union_find.union_elements(5, 4);
+        assert_eq!(union_find.is_connected(4, 1), true);
+    }
 }
