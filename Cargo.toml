@@ -5,6 +5,7 @@ members = [
   "zen",
   "meta",
   "live",
-  "proc_macros"
+  "proc_macros",
+  "proc_macros_derive"
 ]
 
